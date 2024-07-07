@@ -10,9 +10,12 @@ class Canvas{
         void handleEvents(); 
         void update(); 
         void render(); 
-
     public: 
         Canvas(int width, int height);
         ~Canvas(); 
         void run(); 
+        int projectionMatrix[2][3] = { 
+            {1,0,0}, 
+            {0,1,0} 
+        };
 };
