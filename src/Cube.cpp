@@ -13,6 +13,13 @@ Cube::Cube(float length){
     vectors[5] = sf::Vector3f(-size, -size, size);
     vectors[6] = sf::Vector3f(size,  size,  size);
     vectors[7] = sf::Vector3f(-size, size,  size);
+
+
+    for(int i = 0; i < verticesNum; i++){
+        shapes[i].setPosition(sf::Vector2f(vectors[i].x, vectors[i].y));
+        shapes[i].setFillColor(sf::Color::White); 
+        shapes[i].setRadius(5); 
+    }
 }
 
 Cube::~Cube(){
