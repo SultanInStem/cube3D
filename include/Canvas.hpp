@@ -8,9 +8,9 @@ class Canvas{
         void handleEvents(); 
         void update(); 
         void render(); 
-        
+
     public: 
-        Canvas();
+        Canvas(int width, int height);
         ~Canvas(); 
         void run(); 
 };
