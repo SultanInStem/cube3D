@@ -1,7 +1,7 @@
 #include "Canvas.hpp"
 
 float angle = 0; 
-float scale = 1; 
+float scale = 1.1; 
 float rotationMatrixX[3][3] = {
     {1, 0, 0},
     {0, cos(angle), -sin(angle)},
@@ -74,7 +74,6 @@ void Canvas::handleEvents(){
 }
 void Canvas::update(){
     angle += 0.0001;
-    scale += cos(angle); 
     updateMatrices();
     cube.multiplyVectors(rotationMatrixX);
     cube.multiplyVectors(rotationMatrixY);
