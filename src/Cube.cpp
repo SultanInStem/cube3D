@@ -9,7 +9,6 @@ Cube::Cube(float length){
     vectors[5] = sf::Vector3f();
     vectors[6] = sf::Vector3f();
     vectors[7] = sf::Vector3f();
-
 }
 
 Cube::~Cube(){

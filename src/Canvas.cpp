@@ -1,5 +1,6 @@
 #include "Canvas.hpp"
 
+
 Canvas::Canvas(int width, int height){
     sf::ContextSettings settings; 
     settings.antialiasingLevel = 10; 
@@ -16,6 +17,11 @@ Canvas::Canvas(int width, int height){
 }
 
 Canvas::~Canvas(){}
+
+sf::Vector2f Canvas::project(sf::Vector3f vector){
+
+}
+
 
 void Canvas::handleEvents(){
     sf::Event event; 

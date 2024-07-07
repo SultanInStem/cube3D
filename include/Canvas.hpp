@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
-
-
+#ifndef CANVAS_HPP 
+#define CANVAS_HPP
 class Canvas{
     private: 
         sf::RenderWindow window;
@@ -9,7 +9,8 @@ class Canvas{
 
         void handleEvents(); 
         void update(); 
-        void render(); 
+        void render();
+        sf::Vector2f project(sf::Vector3f vector);
     public: 
         Canvas(int width, int height);
         ~Canvas(); 
@@ -19,3 +20,4 @@ class Canvas{
             {0,1,0} 
         };
 };
+#endif
