@@ -7,8 +7,12 @@ Canvas::Canvas(int width, int height){
     window.setFramerateLimit(60); 
 
     view.setSize(sf::Vector2f(window.getSize().x, window.getSize().y));
-    view.setCenter(sf::Vector2f(0, 300));
+    view.setCenter(sf::Vector2f(0, 0));
     window.setView(view);
+
+    point.setFillColor(sf::Color::White); 
+    point.setRadius(10);
+    point.setPosition(sf::Vector2f(0,0)); 
 }
 
 Canvas::~Canvas(){}
@@ -26,7 +30,7 @@ void Canvas::update(){
 }
 void Canvas::render(){
     window.clear(); 
-
+    window.draw(point);
     window.display(); 
 }
 
