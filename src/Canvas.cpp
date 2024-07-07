@@ -4,6 +4,11 @@ Canvas::Canvas(int width, int height){
     sf::ContextSettings settings; 
     settings.antialiasingLevel = 10; 
     window.create(sf::VideoMode(width, height), "3D-Cube", sf::Style::Titlebar | sf::Style::Close, settings);
+    window.setFramerateLimit(60); 
+
+    view.setSize(sf::Vector2f(window.getSize().x, window.getSize().y));
+    view.setCenter(sf::Vector2f(0, 300));
+    window.setView(view);
 }
 
 Canvas::~Canvas(){}

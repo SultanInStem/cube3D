@@ -4,6 +4,7 @@
 class Canvas{
     private: 
         sf::RenderWindow window;
+        sf::View view; 
 
         void handleEvents(); 
         void update(); 
