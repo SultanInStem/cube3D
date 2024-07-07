@@ -2,6 +2,7 @@
 
 
 Canvas::Canvas(int width, int height){
+    cube = new Cube(1);
     sf::ContextSettings settings; 
     settings.antialiasingLevel = 10; 
     window.create(sf::VideoMode(width, height), "3D-Cube", sf::Style::Titlebar | sf::Style::Close, settings);
@@ -13,14 +14,11 @@ Canvas::Canvas(int width, int height){
 
     point.setFillColor(sf::Color::White); 
     point.setRadius(10);
-    point.setPosition(sf::Vector2f(0,0)); 
+    point.setPosition(sf::Vector2f(0,-100)); 
 }
 
 Canvas::~Canvas(){}
 
-sf::Vector2f Canvas::project(sf::Vector3f vector){
-
-}
 
 
 void Canvas::handleEvents(){
