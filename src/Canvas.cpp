@@ -16,10 +16,20 @@ void Canvas::handleEvents(){
         }
     }
 }
+void Canvas::update(){
+
+}
+void Canvas::render(){
+    window.clear(); 
+
+    window.display(); 
+}
 
 void Canvas::run(){
     while (window.isOpen()){
         handleEvents();
+        update(); 
+        render();
     }
     
 }
