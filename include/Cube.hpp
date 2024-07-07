@@ -7,7 +7,7 @@ class Cube{
         static const int verticesNum = 8;
         sf::Vector3f vectors[verticesNum];
         sf::CircleShape shapes[verticesNum]; 
-        sf::Vector3f matrixMult(sf::Vector3f vector, float matrix[3][3]){
+        sf::Vector3f matrixMult(sf::Vector3f vector, float (&matrix)[3][3]){
             sf::Vector3f newVector; 
             float vectM[3][1];
             vectM[0][0] = vector.x; 
@@ -35,13 +35,11 @@ class Cube{
                 window.draw(shapes[i]);
             }
         }
-        void multiplyVectors(float matrix[3][3]){
+        void multiplyVectors(float (&matrix)[3][3]){
             for(int i = 0; i < verticesNum; i++){
                 vectors[i] = matrixMult(vectors[i], matrix);
+                shapes[i].setPosition(sf::Vector2f(vectors[i].x, vectors[i].y)); // projection!!!
             }
         }
-        sf::Vector3f* getVectors(){
-            return vectors;
-        } 
 };
 #endif

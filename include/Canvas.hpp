@@ -15,15 +15,5 @@ class Canvas{
         Canvas(int width, int height);
         ~Canvas(); 
         void run(); 
-        int projectionMatrix[2][3] = { 
-            {1,0,0}, 
-            {0,1,0} 
-        };
-        float angle = 0; 
-        float rotationMatrixX[3][3] = {
-            {1, 0, 0},
-            {0, cos(angle), -sin(angle)},
-            {0, sin(angle), cos(angle)},
-        };
 };
 #endif
