@@ -1,7 +1,7 @@
 #include "Cube.hpp"
 
 Cube::Cube(){
-    size = 0.5; 
+    float size = 0.5; 
     color = sf::Color::White; 
     vectors[0] = sf::Vector3f(size, -size, -size);
     vectors[1] = sf::Vector3f(-size, -size, -size);

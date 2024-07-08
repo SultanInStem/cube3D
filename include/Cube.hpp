@@ -5,8 +5,6 @@
 class Cube{
     private: 
         static const int verticesNum = 8;
-        static const int edgesNum = 12; 
-        float size;
         sf::Color color; 
         sf::Vector3f vectors[verticesNum];
         sf::Vector2f projectedVectors[verticesNum];
