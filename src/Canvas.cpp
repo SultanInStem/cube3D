@@ -3,8 +3,8 @@
 using std::cout; 
 float angle = 0;
 float BOUND_ANGLE = 0.05;
-float speed = 1.0f / 1000; // strictly 1 divided by an integer
-float scale = M_PI / 2; 
+float rotationSpeed = 1.0f / 1000; // strictly 1 divided by an integer
+float scale = 100; 
 float rotationMatrixX[3][3] = {
     {1, 0, 0},
     {0, cos(angle), -sin(angle)},
@@ -21,9 +21,9 @@ float rotationMatrixZ[3][3] = {
     {0,0,1}
 };
 float scalingMatrix[3][3] = {
-    {sin(scale), 0, 0}, 
-    {0, sin(scale), 0}, 
-    {0, 0, sin(scale)}
+    {scale, 0, 0}, 
+    {0, scale , 0}, 
+    {0, 0, scale}
 };
 
 void updateMatrices(){
@@ -61,13 +61,9 @@ void updateMatrices(){
     rotationMatrixZ[2][0] = 0;   
     rotationMatrixZ[2][1] = 0; 
     rotationMatrixZ[2][2] = 1;
-
-    scalingMatrix[0][0] = sin(scale);
-    scalingMatrix[1][1] = sin(scale);
-    scalingMatrix[2][2] = sin(scale);
 }
 
-Canvas::Canvas(int width, int height) : cube(1){
+Canvas::Canvas(int width, int height) : cube(){
     sf::ContextSettings settings; 
     settings.antialiasingLevel = 10; 
     window.create(sf::VideoMode(width, height), "3D-Cube", sf::Style::Titlebar | sf::Style::Close, settings);
@@ -76,6 +72,8 @@ Canvas::Canvas(int width, int height) : cube(1){
     view.setSize(sf::Vector2f(window.getSize().x, window.getSize().y));
     view.setCenter(sf::Vector2f(0, 0));
     window.setView(view);
+
+    cube.multiplyVectors(scalingMatrix);
 }
 
 Canvas::~Canvas(){}
@@ -91,20 +89,16 @@ void Canvas::handleEvents(){
 void Canvas::update(float dt){
     if(angle > BOUND_ANGLE){
         angle = -BOUND_ANGLE; 
-        speed = speed < 0 ? -speed : speed; 
+        rotationSpeed = rotationSpeed < 0 ? -rotationSpeed : rotationSpeed; 
     }else if(angle < -BOUND_ANGLE){
         angle = BOUND_ANGLE;
-        speed = speed > 0 ? speed : -speed;
+        rotationSpeed = rotationSpeed > 0 ? rotationSpeed : -rotationSpeed;
     }
-    if(angle >= -BOUND_ANGLE && angle <= BOUND_ANGLE) angle += (BOUND_ANGLE * speed); 
-    
-    
- 
+    if(angle >= -BOUND_ANGLE && angle <= BOUND_ANGLE) angle += (BOUND_ANGLE * rotationSpeed); 
 
     updateMatrices();
     cube.multiplyVectors(rotationMatrixX);
     cube.multiplyVectors(rotationMatrixY);
-    cube.multiplyVectors(scalingMatrix);
     cube.multiplyVectors(rotationMatrixZ);
 }
 void Canvas::render(){

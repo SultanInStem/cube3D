@@ -4,6 +4,7 @@
 #define CUBE_HPP
 class Cube{
     private: 
+        float size;
         static const int verticesNum = 8;
         sf::Vector3f vectors[verticesNum];
         sf::CircleShape shapes[verticesNum]; 
@@ -27,7 +28,7 @@ class Cube{
             return newVector;
         }
     public: 
-        Cube(float length); 
+        Cube(); 
         ~Cube();
         void show(sf::RenderWindow& window){
             for(int i = 0; i < verticesNum; i++){
