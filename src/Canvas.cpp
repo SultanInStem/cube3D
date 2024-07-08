@@ -4,7 +4,7 @@ using std::cout;
 float angle = 0;
 float BOUND_ANGLE = 0.05;
 float rotationSpeed = 1.0f / 1000; // strictly 1 divided by an integer
-float scale = 100; 
+float scale = 170; 
 float rotationMatrixX[3][3] = {
     {1, 0, 0},
     {0, cos(angle), -sin(angle)},
@@ -72,7 +72,6 @@ Canvas::Canvas(int width, int height) : cube(){
     view.setSize(sf::Vector2f(window.getSize().x, window.getSize().y));
     view.setCenter(sf::Vector2f(0, 0));
     window.setView(view);
-
     cube.multiplyVectors(scalingMatrix);
 }
 
