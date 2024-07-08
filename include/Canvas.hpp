@@ -5,11 +5,12 @@
 class Canvas{
     private: 
         sf::RenderWindow window;
+        sf::Clock clock;
         sf::View view; 
         sf::CircleShape point;
         Cube cube;        
         void handleEvents(); 
-        void update(); 
+        void update(float dt); 
         void render();
     public: 
         Canvas(int width, int height);

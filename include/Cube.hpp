@@ -7,7 +7,7 @@ class Cube{
         static const int verticesNum = 8;
         sf::Vector3f vectors[verticesNum];
         sf::CircleShape shapes[verticesNum]; 
-        sf::Vector3f matrixMult(sf::Vector3f vector, float (&matrix)[3][3]){
+        sf::Vector3f matrixMult(const sf::Vector3f& vector, float (&matrix)[3][3]){
             sf::Vector3f newVector; 
             float vectM[3][1];
             vectM[0][0] = vector.x; 
