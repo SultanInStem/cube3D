@@ -2,9 +2,9 @@
 #include "Canvas.hpp"
 using std::cout; 
 float angle = 0;
-float BOUND_ANGLE = 0.1;
-float speed = 1.0f / 100; // strictly 1 divided by an integer
-float scale = 1; 
+float BOUND_ANGLE = 0.05;
+float speed = 1.0f / 1000; // strictly 1 divided by an integer
+float scale = M_PI / 2; 
 float rotationMatrixX[3][3] = {
     {1, 0, 0},
     {0, cos(angle), -sin(angle)},
@@ -21,9 +21,9 @@ float rotationMatrixZ[3][3] = {
     {0,0,1}
 };
 float scalingMatrix[3][3] = {
-    {scale, 0, 0}, 
-    {0, scale, 0}, 
-    {0, 0, scale}
+    {sin(scale), 0, 0}, 
+    {0, sin(scale), 0}, 
+    {0, 0, sin(scale)}
 };
 
 void updateMatrices(){
@@ -62,9 +62,9 @@ void updateMatrices(){
     rotationMatrixZ[2][1] = 0; 
     rotationMatrixZ[2][2] = 1;
 
-    scalingMatrix[0][0] = scale;
-    scalingMatrix[1][1] = scale;
-    scalingMatrix[2][2] = scale;
+    scalingMatrix[0][0] = sin(scale);
+    scalingMatrix[1][1] = sin(scale);
+    scalingMatrix[2][2] = sin(scale);
 }
 
 Canvas::Canvas(int width, int height) : cube(1){
@@ -76,16 +76,9 @@ Canvas::Canvas(int width, int height) : cube(1){
     view.setSize(sf::Vector2f(window.getSize().x, window.getSize().y));
     view.setCenter(sf::Vector2f(0, 0));
     window.setView(view);
-
-    point.setFillColor(sf::Color::Red); 
-    point.setRadius(3);
-    point.setPosition(sf::Vector2f(0,0)); 
 }
 
-Canvas::~Canvas(){
-}
-
-
+Canvas::~Canvas(){}
 
 void Canvas::handleEvents(){
     sf::Event event; 
@@ -98,24 +91,24 @@ void Canvas::handleEvents(){
 void Canvas::update(float dt){
     if(angle > BOUND_ANGLE){
         angle = -BOUND_ANGLE; 
+        speed = speed < 0 ? -speed : speed; 
     }else if(angle < -BOUND_ANGLE){
         angle = BOUND_ANGLE;
+        speed = speed > 0 ? speed : -speed;
     }
-    if(angle >= -BOUND_ANGLE && angle <= BOUND_ANGLE){
-        angle += (BOUND_ANGLE * speed); 
-    }else if(angle <= BOUND_ANGLE && angle >= -BOUND_ANGLE){
-        angle -= (BOUND_ANGLE * speed); 
-    }
+    if(angle >= -BOUND_ANGLE && angle <= BOUND_ANGLE) angle += (BOUND_ANGLE * speed); 
+    
+    
+ 
 
     updateMatrices();
     cube.multiplyVectors(rotationMatrixX);
     cube.multiplyVectors(rotationMatrixY);
-    // cube.multiplyVectors(scalingMatrix);
+    cube.multiplyVectors(scalingMatrix);
     cube.multiplyVectors(rotationMatrixZ);
 }
 void Canvas::render(){
     window.clear(); 
-    window.draw(point);
     cube.show(window); 
     window.display(); 
 }

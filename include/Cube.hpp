@@ -29,7 +29,6 @@ class Cube{
     public: 
         Cube(float length); 
         ~Cube();
-
         void show(sf::RenderWindow& window){
             for(int i = 0; i < verticesNum; i++){
                 window.draw(shapes[i]);

@@ -7,7 +7,6 @@ class Canvas{
         sf::RenderWindow window;
         sf::Clock clock;
         sf::View view; 
-        sf::CircleShape point;
         Cube cube;        
         void handleEvents(); 
         void update(float dt); 
