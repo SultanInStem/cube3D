@@ -1,7 +1,9 @@
 #include <iostream>
 #include "Canvas.hpp"
 using std::cout; 
-float angle = - 2 * M_PI; 
+float angle = 0;
+float BOUND_ANGLE = 0.1;
+float speed = 1.0f / 100; // strictly 1 divided by an integer
 float scale = 1; 
 float rotationMatrixX[3][3] = {
     {1, 0, 0},
@@ -69,7 +71,7 @@ Canvas::Canvas(int width, int height) : cube(1){
     sf::ContextSettings settings; 
     settings.antialiasingLevel = 10; 
     window.create(sf::VideoMode(width, height), "3D-Cube", sf::Style::Titlebar | sf::Style::Close, settings);
-    window.setFramerateLimit(60); 
+    window.setFramerateLimit(30); 
 
     view.setSize(sf::Vector2f(window.getSize().x, window.getSize().y));
     view.setCenter(sf::Vector2f(0, 0));
@@ -94,16 +96,22 @@ void Canvas::handleEvents(){
     }
 }
 void Canvas::update(float dt){
-    angle += 1.0f * dt / 100; 
-    cout << "angle: " << angle << "\n"; 
-    if(angle > 2 * M_PI){
-        angle -= -2 * M_PI; 
+    if(angle > BOUND_ANGLE){
+        angle = -BOUND_ANGLE; 
+    }else if(angle < -BOUND_ANGLE){
+        angle = BOUND_ANGLE;
     }
+    if(angle >= -BOUND_ANGLE && angle <= BOUND_ANGLE){
+        angle += (BOUND_ANGLE * speed); 
+    }else if(angle <= BOUND_ANGLE && angle >= -BOUND_ANGLE){
+        angle -= (BOUND_ANGLE * speed); 
+    }
+
     updateMatrices();
     cube.multiplyVectors(rotationMatrixX);
     cube.multiplyVectors(rotationMatrixY);
     // cube.multiplyVectors(scalingMatrix);
-    // cube.multiplyVectors(rotationMatrixZ);
+    cube.multiplyVectors(rotationMatrixZ);
 }
 void Canvas::render(){
     window.clear(); 
