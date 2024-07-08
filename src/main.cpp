@@ -3,7 +3,7 @@
 
 
 int main(){
-    Canvas canvas(900, 700);
+    Canvas canvas(1100, 800);
     canvas.run();
     return 0; 
 }

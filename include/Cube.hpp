@@ -4,10 +4,14 @@
 #define CUBE_HPP
 class Cube{
     private: 
-        float size;
         static const int verticesNum = 8;
+        static const int edgesNum = 12; 
+        float size;
+        sf::Color color; 
         sf::Vector3f vectors[verticesNum];
-        sf::CircleShape shapes[verticesNum]; 
+        sf::Vector2f projectedVectors[verticesNum];
+        sf::CircleShape shapes[verticesNum];  
+
         sf::Vector3f matrixMult(const sf::Vector3f& vector, float (&matrix)[3][3]){
             sf::Vector3f newVector; 
             float vectM[3][1];
@@ -34,12 +38,49 @@ class Cube{
             for(int i = 0; i < verticesNum; i++){
                 window.draw(shapes[i]);
             }
+            sf::VertexArray lines(sf::Lines, 24); 
+            // sf::Color 
+            int index = 0; 
+            lines[index++] = sf::Vertex(projectedVectors[0], color);
+            lines[index++] = sf::Vertex(projectedVectors[1], color);
+            lines[index++] = sf::Vertex(projectedVectors[1], color);
+            lines[index++] = sf::Vertex(projectedVectors[3], color);
+            lines[index++] = sf::Vertex(projectedVectors[3], color);
+            lines[index++] = sf::Vertex(projectedVectors[2], color);
+            lines[index++] = sf::Vertex(projectedVectors[2], color);
+            lines[index++] = sf::Vertex(projectedVectors[0], color);
+
+            // Back face
+            lines[index++] = sf::Vertex(projectedVectors[4], color);
+            lines[index++] = sf::Vertex(projectedVectors[5], color);
+            lines[index++] = sf::Vertex(projectedVectors[5], color);
+            lines[index++] = sf::Vertex(projectedVectors[7], color);
+            lines[index++] = sf::Vertex(projectedVectors[7], color);
+            lines[index++] = sf::Vertex(projectedVectors[6], color);
+            lines[index++] = sf::Vertex(projectedVectors[6], color);
+            lines[index++] = sf::Vertex(projectedVectors[4], color);
+
+            // Connecting edges
+            lines[index++] = sf::Vertex(projectedVectors[0], color);
+            lines[index++] = sf::Vertex(projectedVectors[4], color);
+            lines[index++] = sf::Vertex(projectedVectors[1], color);
+            lines[index++] = sf::Vertex(projectedVectors[5], color);
+            lines[index++] = sf::Vertex(projectedVectors[2], color);
+            lines[index++] = sf::Vertex(projectedVectors[6], color);
+            lines[index++] = sf::Vertex(projectedVectors[3], color);
+            lines[index++] = sf::Vertex(projectedVectors[7], color);
+
+            window.draw(lines);
         }
         void multiplyVectors(float (&matrix)[3][3]){
             for(int i = 0; i < verticesNum; i++){
                 vectors[i] = matrixMult(vectors[i], matrix);
-                shapes[i].setPosition(sf::Vector2f(vectors[i].x, vectors[i].y)); // projection!!!
+                projectedVectors[i] = sf::Vector2f(vectors[i].x, vectors[i].y);
+                shapes[i].setPosition(projectedVectors[i]); // projection!!!
             }
+        }
+        void setColor(sf::Color newColor){
+            color = newColor; 
         }
 };
 #endif

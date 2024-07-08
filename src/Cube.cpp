@@ -2,6 +2,7 @@
 
 Cube::Cube(){
     size = 0.5; 
+    color = sf::Color::White; 
     vectors[0] = sf::Vector3f(size, -size, -size);
     vectors[1] = sf::Vector3f(-size, -size, -size);
     vectors[2] = sf::Vector3f( size, size,  -size);
@@ -15,12 +16,12 @@ Cube::Cube(){
 
 
     for(int i = 0; i < verticesNum; i++){
+        shapes[i].setRadius(5); 
+        shapes[i].setOrigin(sf::Vector2f(5,5));
         shapes[i].setPosition(sf::Vector2f(vectors[i].x, vectors[i].y));
         shapes[i].setFillColor(sf::Color::White); 
-        shapes[i].setRadius(5); 
     }
 }
 
 Cube::~Cube(){
-
 }
