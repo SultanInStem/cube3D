@@ -23,5 +23,4 @@ Cube::Cube(){
     }
 }
 
-Cube::~Cube(){
-}
+Cube::~Cube(){}
