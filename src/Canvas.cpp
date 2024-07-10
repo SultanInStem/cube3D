@@ -65,7 +65,7 @@ void updateMatrices(){
 
 Canvas::Canvas(int width, int height) : cube(){
     sf::ContextSettings settings; 
-    settings.antialiasingLevel = 10; 
+    settings.antialiasingLevel = 20; 
     window.create(sf::VideoMode(width, height), "3D-Cube", sf::Style::Titlebar | sf::Style::Close, settings);
     window.setFramerateLimit(30); 
 
